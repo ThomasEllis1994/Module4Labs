@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta author="Thomas Ellis" />
+        <title>Lab 6</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+        />
+    </head>
+    <body></body>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+    ></script>
+    <script>
+        let news = [
+            {
+                id: 1,
+                title: "Election Results",
+                content: "Newly elected minister...",
+            },
+            {
+                id: 2,
+                title: "Sporting Success",
+                content: "World Cup winners...",
+            },
+            {
+                id: 3,
+                title: "Tornado Warning",
+                content: "Residents should prepare...",
+            },
+        ];
+        function addCard(title = "lorem", text = "latin", url = null) {
+            // clone the template
+            const template = document
+                .getElementById("card-template")
+                .content.cloneNode(true);
+            // populate the template
+            // if (url) {
+            //     template.querySelector(".card-image").src = url;
+            //     tempalte.querySelector(".card-image").alt = title;
+            // }
+            template.querySelector(".card-title").innerText = title;
+            template.querySelector(".card-text").innerText = text;
+            // include the populated template into the page
+            document.querySelector("#card-list").appendChild(template);
+        }
+        addCard(
+            "Roman legion passes through time portal",
+            "this is the end of our world"
+        );
+        addCard();
+        //2.B.)
+        const data = [
+            { name: "bob", age: 23 },
+            { name: "alice", age: 39 },
+        ];
+
+        data.forEach((person) => addCard(person.name, person.age));
+        //2.C.)
+        const artist = [
+            {
+                name: "Van Gogh",
+                portfolio: [
+                    {
+                        title: "portrait",
+                        url: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/436532/1671316/main-image",
+                    },
+                    {
+                        title: "sky",
+                        url: "https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg",
+                    },
+                ],
+            },
+        ];
+        // Come back and make this actually show the paintings
+        // Look into creating an image html element and using src and alt to display someting
+        artist.forEach((painter) => {
+            for (i = 0; i < painter.portfolio.length; i++) {
+                addCard(
+                    painter.name,
+                    painter.portfolio[i].title,
+                    painter.portfolio[i].url
+                );
+            }
+        });
+    </script>
+</html>
