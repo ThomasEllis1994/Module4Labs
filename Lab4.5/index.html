@@ -12,7 +12,46 @@
             crossorigin="anonymous"
         />
     </head>
-    <body></body>
+    <body>
+        <template id="card-template">
+            <article
+                class="card col-lg-3 col-md-6 col-sm-12"
+                style="width: 18rem"
+            >
+                <section class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">
+                        Some quick example text to build on the card title and
+                        make up the bulk of the card's content.
+                    </p>
+                </section>
+            </article>
+        </template>
+        <div id="card-list" class="row"></div>
+
+        <br />
+        <label for="newsTitle">Enter the Article Title</label>
+        <br />
+        <input
+            id="articleTitle"
+            type="text"
+            name="newsTitle"
+            placeholder="Article Title"
+            size="30"
+        />
+        <br />
+        <label for="newsArticle">Enter the article information</label>
+        <br />
+        <input
+            id="newsArticle"
+            type="text"
+            name="newsArticle"
+            placeholder="Article Information"
+            size="50"
+            style="height: 100px"
+        />
+        <button onclick="addNews()">Submit Article</button>
+    </body>
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -36,59 +75,44 @@
                 content: "Residents should prepare...",
             },
         ];
-        function addCard(title = "lorem", text = "latin", url = null) {
+        function addNews(array) {
             // clone the template
-            const template = document
-                .getElementById("card-template")
-                .content.cloneNode(true);
-            // populate the template
-            // if (url) {
-            //     template.querySelector(".card-image").src = url;
-            //     tempalte.querySelector(".card-image").alt = title;
-            // }
-            template.querySelector(".card-title").innerText = title;
-            template.querySelector(".card-text").innerText = text;
-            // include the populated template into the page
-            document.querySelector("#card-list").appendChild(template);
-        }
-        addCard(
-            "Roman legion passes through time portal",
-            "this is the end of our world"
-        );
-        addCard();
-        //2.B.)
-        const data = [
-            { name: "bob", age: 23 },
-            { name: "alice", age: 39 },
-        ];
-
-        data.forEach((person) => addCard(person.name, person.age));
-        //2.C.)
-        const artist = [
-            {
-                name: "Van Gogh",
-                portfolio: [
-                    {
-                        title: "portrait",
-                        url: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/436532/1671316/main-image",
-                    },
-                    {
-                        title: "sky",
-                        url: "https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg",
-                    },
-                ],
-            },
-        ];
-        // Come back and make this actually show the paintings
-        // Look into creating an image html element and using src and alt to display someting
-        artist.forEach((painter) => {
-            for (i = 0; i < painter.portfolio.length; i++) {
-                addCard(
-                    painter.name,
-                    painter.portfolio[i].title,
-                    painter.portfolio[i].url
-                );
+            const element = document.getElementById("card-list");
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
             }
-        });
+            for (let i = 0; i < array.length; i++) {
+                let title = array[i].title;
+                let text = array[i].content;
+                i += 1;
+                const template = document
+                    .getElementById("card-template")
+                    .content.cloneNode(true);
+                template.querySelector(".card-title").innerText = title;
+                template.querySelector(".card-text").innerText = text;
+                // include the populated template into the page
+                document.querySelector("#card-list").appendChild(template);
+            }
+        }
+        addNews(news);
+        function newNews() {
+            let title = document.getElementById("articleTitle").value;
+            let content = document.getElementById("newsArticle").value;
+            let newID = news.length + 1;
+            news.push({
+                id: newID,
+                title: title,
+                content: content,
+            });
+        }
+        function checkNews(array) {
+            let titles = document.querySelectorAll(".card-title");
+            if (titles.length === array.length) {
+                console.log("News is up to date");
+            } else {
+                return addNews(news);
+            }
+        }
+        setInterval(checkNews(news), 5000);
     </script>
 </html>
