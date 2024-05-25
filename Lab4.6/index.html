@@ -48,12 +48,13 @@
             document.querySelector("#card-list").appendChild(template); // include the populated template into the page
         }
         try {
-            axios.get("https://jsonplaceholder.typicode.com/posts?_limit=10");
-            axios.then((response) =>
-                response.data.forEach((element) => {
-                    addCard(element.title, element.body);
-                })
-            );
+            axios
+                .get("https://jsonplaceholder.typicode.com/posts?_limit=10")
+                .then((response) =>
+                    response.data.forEach((element) => {
+                        addCard(element.title, element.body);
+                    })
+                );
         } catch (error) {}
     </script>
 </html>
