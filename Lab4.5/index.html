@@ -104,7 +104,6 @@
                 title: title,
                 content: content,
             });
-            return news;
         }
         console.log(news);
         console.log("news length " + news.length);
@@ -119,6 +118,6 @@
                 addNews(array);
             }
         }
-        setInterval(checkNews(news), 5000);
+        setInterval(() => checkNews(news), 5000);
     </script>
 </html>
